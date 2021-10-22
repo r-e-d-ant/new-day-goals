@@ -37,7 +37,7 @@
         </section>
 </main>
     <footer>
-        <i @click="gotoNewGoal" class='bx bxs-plus-circle save-add-todo' ></i>
+        <i @click="gotoNewGoal" class='bx bxs-plus-circle save-add-todo'></i>
     </footer>
 </div>
 </template>

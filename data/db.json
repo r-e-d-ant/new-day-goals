@@ -1,3 +1,16 @@
 {
-  "goals": []
+  "goals": [
+    {
+      "goalName": "dsfssfs",
+      "goalColor": "#838fa1",
+      "completed": true,
+      "id": 1
+    },
+    {
+      "goalName": "fsfsfsfsf",
+      "goalColor": "#3dda91",
+      "completed": false,
+      "id": 5
+    }
+  ]
 }
