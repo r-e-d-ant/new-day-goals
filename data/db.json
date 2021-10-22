@@ -1,28 +1,3 @@
 {
-  "goals": [
-    {
-      "goalName": "ffefefewf",
-      "goalColor": "#43B3F4",
-      "completed": true,
-      "id": 23
-    },
-    {
-      "goalName": "fsfsfsf",
-      "goalColor": "#838fa1",
-      "completed": false,
-      "id": 24
-    },
-    {
-      "goalName": "fsfsfsf",
-      "goalColor": "#684ff0",
-      "completed": true,
-      "id": 25
-    },
-    {
-      "goalName": "fsfsfsfsfsf",
-      "goalColor": "#ff88dd",
-      "completed": false,
-      "id": 26
-    }
-  ]
+  "goals": []
 }

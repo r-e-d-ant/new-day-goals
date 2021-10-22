@@ -61,20 +61,20 @@ export default {
                 "goalColor": this.goalColor,
                 "completed": false
             }
+            const goalAddedEl = this.$refs.goalAdded
             // check if the goal name is not empty then add new goal
             if(this.goalName) {
                 const res = await axios.post("http://localhost:3000/goals", goal)
                 this.goals = [...this.goals, res.data]
                 this.goalName = ''
                 this.$refs.goalInput.focus()
-                const goalAddedEl = this.$refs.goalAdded
                 goalAddedEl.style.display = 'block'
                 setTimeout(() => {
                     goalAddedEl.style.display = 'none'
                 }, 2000)
             }else {
-                alert("Goal name is empty")
                 this.$refs.goalInput.focus()
+                alert("Goal input is empty")
             }
         },
         back(){
