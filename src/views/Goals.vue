@@ -44,45 +44,26 @@ export default {
     component: {},
     data() {
         return {
-            goals: [
-                {
-                    "goalId": 1,
-                    "goalName": "Go to gym",
-                    "goalColor": "#43B3F4",
-                    "completed": false
-                },
-                {
-                    "goalId": 2,
-                    "goalName": "Go to Walk",
-                    "goalColor": "#3DDA91",
-                    "completed": true
-                },
-                {
-                    "goalId": 3,
-                    "goalName": "Call CEO",
-                    "goalColor": "#FF5B60",
-                    "completed": false
-                },
-                {
-                    "goalId": 4,
-                    "goalName": "Eat cereal",
-                    "goalColor": "#43B3F4",
-                    "completed": true
-                },
-                {
-                    "goalId": 5,
-                    "goalName": "Call school",
-                    "goalColor": "#3DDA91",
-                    "completed": true
-                },
-                {
-                    "goalId": 6,
-                    "goalName": "Call Chairman",
-                    "goalColor": "#FF5B60",
-                    "completed": false
-                }
-            ]
+            goals: [],
+            error: null
         }
+    },
+    methods: {
+        async fetchGoals() {
+            try {
+                const data = await fetch("http://localhost:3000/goals")
+                if(!data.ok){
+                    throw Error("No Goals available")
+                }
+                this.goals = await data.json()
+            }
+            catch(err) {
+                this.error = err.message
+            }
+        }
+    },
+    mounted() {
+        this.fetchGoals()
     }
 }
 </script>
