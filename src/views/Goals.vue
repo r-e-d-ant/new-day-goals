@@ -53,6 +53,12 @@ export default {
         }
     },
     methods: {
+        // button to go to new goal router
+        gotoNewGoal() {
+            this.$router.push({ name: 'NewGoal' })
+        },
+
+        // get goals
         async fetchGoals() {
             try {
                 const { data } = await axios.get("http://localhost:3000/goals")
@@ -61,29 +67,33 @@ export default {
                 console.log(e.message)
             }
         },
-        gotoNewGoal() {
-            this.$router.push({ name: 'NewGoal' })
-        },
+        // delete goal by id
         async deleteGoal(id) {
             try {
                 await axios.delete("http://localhost:3000/goals/" + id)
+                // call fetchGoals function to update goals
                 this.fetchGoals()
             } catch(e) {
                 console.log(e)
             }
         },
+        // completes goal by id
         async completeGoal(id) {
+            // get goal by id to populate updated goal
             const goal  = await axios.get("http://localhost:3000/goals/" + id)
             const complete = {
                 goalName: goal.data.goalName,
                 goalColor: goal.data.goalColor,
                 completed: !goal.data.completed
             }
+            // update the goal object with new data
             await axios.put("http://localhost:3000/goals/" + id, complete)
+             // call fetchGoals function to update goals
             this.fetchGoals()
         }
     },
     mounted() {
+        // call fetch goals function when the Goals router is mounted
         this.fetchGoals()
     }
 }

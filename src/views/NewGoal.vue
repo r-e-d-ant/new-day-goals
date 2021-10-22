@@ -67,21 +67,26 @@ export default {
                 const res = await axios.post("http://localhost:3000/goals", goal)
                 this.goals = [...this.goals, res.data]
                 this.goalName = ''
+                // focus the input when the goal is saved
+                // here we suse template reference
                 this.$refs.goalInput.focus()
+
                 goalAddedEl.style.display = 'block'
                 setTimeout(() => {
                     goalAddedEl.style.display = 'none'
                 }, 2000)
-            }else {
+            } else {
                 this.$refs.goalInput.focus()
                 alert("Goal input is empty")
             }
         },
         back(){
+            // function to go back in history router
             this.$router.go(-1)
         }
     },
     mounted() {
+        // focus goal input when NewGoal is mounted
         this.$refs.goalInput.focus()
     }
 }
