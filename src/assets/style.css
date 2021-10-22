@@ -56,7 +56,7 @@ header {
 
 header h1 {
     font-weight: 800;
-    font-size: 2.1rem;
+    font-size: 1.8rem;
 }
 
 /* -- main -- */
@@ -97,7 +97,7 @@ main {
 .action-goals-list h2 {
     cursor: pointer;
     font-weight: 300;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }
 .action-goals-list .bx-chevron-down {
     cursor: pointer;
@@ -134,7 +134,7 @@ footer {
 }
 .save-add-todo {
     cursor: pointer;
-    font-size: 4rem;
+    font-size: 3rem;
     margin: .5rem 0;
     border: 8px solid var(--primary-clr);
     background-color: var(--white-clr);

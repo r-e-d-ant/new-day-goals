@@ -1,7 +1,7 @@
 
 <template>
 <div>
-    <main>
+    <main class="newGoalCont">
     <section>
             <form class="goal-form-container">
                 <label class="form-label">Goal</label>
@@ -43,7 +43,7 @@ export default {
     components: {},
     data() {
         return {
-            colors: ["#43b3f4", "#fd8956", "#ff5b60", "#3dda91", "#838fa1", "#ffb4a2", "#684ff0", "#ff88dd"],
+            colors: ["#43b3f4", "#fd8956", "#3dda91", "#838fa1", "#ffb4a2", "#684ff0", "#ff88dd"],
             goals: [],
             goalName: '',
             goalColor: '#43B3F4'
@@ -93,6 +93,9 @@ export default {
 </script>
 
 <style scoped>
+.newGoalCont {
+    margin-bottom: 8rem;
+}
 .goal-form-container {
     display: flex;
     flex-direction: column;
@@ -114,7 +117,7 @@ export default {
           40%), 0.8);
 }
 .form-label {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     text-transform: uppercase;
     margin-bottom: .5rem;
 }
@@ -145,7 +148,7 @@ export default {
     color: var(--white-clr);
     margin-top: 1.2rem;
     font-weight: 400;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 .colors {
     display: flex;
@@ -168,7 +171,7 @@ export default {
     cursor: pointer;
     position: absolute;
     left: 3rem;
-    font-size: 3rem;
+    font-size: 2rem;
 }
 .goal-added-notify {
     font-size: 1.5rem;
