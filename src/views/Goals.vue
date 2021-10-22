@@ -1,19 +1,20 @@
+
 <template>
-<main>
-    <div>
-        <section class="section section-1">
+<div>
+    <main>
+    <section class="section section-1">
             <div class="action-goals-list">
                 <h2>uncompleted</h2>
                 <i class='bx bx-chevron-down'></i>
             </div>
-            <div v-for="goal in goals" :key="goal.goalId" v-show="!goal.completed" class="goals">
+            <div v-for="goal in goals" :key="goal.id" v-show="!goal.completed" class="goals">
                 <!-- goal 1 -->
                 <div class="goal" :style="{ 'background-color': goal.goalColor }">
                     <div class="goal-left">
-                        <i class='bx bx-circle' ></i>
+                        <i class='bx bx-circle' @click="completeGoal(goal.id)"></i>
                         <h3>{{ goal.goalName }}</h3>
                     </div>
-                    <i class='bx bxs-x-circle' ></i>
+                    <i class='bx bxs-x-circle' @click="deleteGoal(goal.id)"></i>
                 </div>
             </div>
         </section>
@@ -23,43 +24,63 @@
                 <h2>completed</h2>
                 <i class='bx bx-chevron-down'></i>
             </div>
-            <div v-for="goal in goals" :key="goal.goalId" v-show="goal.completed" class="goals">
+            <div v-for="goal in goals" :key="goal.id" v-show="goal.completed" class="goals">
                 <!-- goal 1 -->
                 <div class="goal" :style="{ 'background-color': goal.goalColor }">
                     <div class="goal-left">
-                        <i class='bx bxs-check-circle' ></i>
+                        <i class='bx bxs-check-circle' @click="completeGoal(goal.id)"></i>
                         <h3>{{ goal.goalName }}</h3>
                     </div>
-                    <i class='bx bxs-x-circle' ></i>
+                    <i class='bx bxs-x-circle' @click="deleteGoal(goal.id)"></i>
                 </div>
             </div>
         </section>
-    </div>
 </main>
+    <footer>
+        <i @click="gotoNewGoal" class='bx bxs-plus-circle save-add-todo' ></i>
+    </footer>
+</div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: 'Goals',
     component: {},
     data() {
         return {
-            goals: [],
-            error: null
+            goals: []
         }
     },
     methods: {
         async fetchGoals() {
             try {
-                const data = await fetch("http://localhost:3000/goals")
-                if(!data.ok){
-                    throw Error("No Goals available")
-                }
-                this.goals = await data.json()
+                const { data } = await axios.get("http://localhost:3000/goals")
+                this.goals = data;
+            } catch(e) {
+                console.log(e.message)
             }
-            catch(err) {
-                this.error = err.message
+        },
+        gotoNewGoal() {
+            this.$router.push({ name: 'NewGoal' })
+        },
+        async deleteGoal(id) {
+            try {
+                await axios.delete("http://localhost:3000/goals/" + id)
+                this.fetchGoals()
+            } catch(e) {
+                console.log(e)
             }
+        },
+        async completeGoal(id) {
+            const goal  = await axios.get("http://localhost:3000/goals/" + id)
+            const complete = {
+                goalName: goal.data.goalName,
+                goalColor: goal.data.goalColor,
+                completed: !goal.data.completed
+            }
+            await axios.put("http://localhost:3000/goals/" + id, complete)
+            this.fetchGoals()
         }
     },
     mounted() {
@@ -92,18 +113,6 @@ export default {
 }
 .goal .bxs-x-circle {
     margin-left: .3rem;
-}
-.g_one {
-    background-color: var(--blue-clr);
-}
-.g_two {
-    background-color: var(--green-clr);
-}
-.g_three {
-    background-color: var(--orange-clr);
-}
-.g_four {
-    background-color: var(--red-clr);
 }
 .goal-left {
     display: flex;

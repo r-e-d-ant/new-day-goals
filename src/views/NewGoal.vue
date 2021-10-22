@@ -1,63 +1,89 @@
+
 <template>
-<main>
+<div>
+    <main>
     <section>
             <form class="goal-form-container">
                 <label class="form-label">Goal</label>
-                <input type="text" class="form-input">
+                <input type="text" class="form-input" v-model="goalName" ref="goalInput" required>
             </form>
             <div class="goal-show-n-color-choose">
-                <div class="goal-show">
+                <div :style="{ 'background-color': goalColor }" class="goal-show">
                     <div class="stars-container">
                         <div class="stars">✨</div>
                     </div>
-                    <h3>Go te learn Judo</h3>
+                    <h3 v-if="goalName">{{ goalName }}</h3>
+                    <h3 v-else>Goal</h3>
                 </div>
                 <div class="select-color">
                     <span class="form-label">SELECT COLOR</span>
                     <div class="colors">
-                        <!-- 43B3F4 -->
-                        <div class="clr-border">
-                            <div id="43B3F4" class="color-select"></div>
-                        </div>
-                        <!-- FD8956 -->
-                        <div class="clr-border">
-                            <div id="FD8956" class="color-select"></div>
-                        </div>
-                        <!-- FF5B60 -->
-                        <div class="clr-border">
-                            <div id="FF5B60" class="color-select"></div>
-                        </div>
-                        <!-- 3DDA91 -->
-                        <div class="clr-border">
-                            <div id="3DDA91" class="color-select"></div>
-                        </div>
-                        <!-- 2E3A57 -->
-                        <div class="clr-border">
-                            <div id="2E3A57" class="color-select"></div>
-                        </div>
-                        <!-- 838FA1 -->
-                        <div class="clr-border">
-                            <div id="838FA1" class="color-select"></div>
-                        </div>
-                        <!-- 684FF0 -->
-                        <div class="clr-border">
-                            <div id="684FF0" class="color-select"></div>
-                        </div>
-                        <!-- FF88DD -->
-                        <div class="clr-border">
-                            <div id="FF88DD" class="color-select"></div>
+                        <!-- color select -->
+                        <div :style="{ 'border-color': color }" class="clr-border" v-for="color in colors" :key="color">
+                            <div @click="selectedColor(color)" :id="color" class="color-select" :style="{ 'background-color': color }"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <p class="goal-added-notify" ref="goalAdded">Goal added!</p>
 </main>
+<footer>
+    <i class='bx bx-arrow-back' @click="back" title="back home"></i>
+    <i @click="saveNewGoal" class='bx bxs-check-circle save-add-todo'></i>
+</footer>
+</div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: "NewGoal",
-    components: {}
+    components: {},
+    data() {
+        return {
+            colors: ["#43b3f4", "#fd8956", "#ff5b60", "#3dda91", "#838fa1", "#ffb4a2", "#684ff0", "#ff88dd"],
+            goals: [],
+            goalName: '',
+            goalColor: '#43B3F4'
+        }
+    },
+    methods: {
+        selectedColor(color) {
+            this.goalColor = color
+        },
+        // Save new goal
+        async saveNewGoal() {
+            // new object of goal
+            const goal = {
+                "goalName": this.goalName,
+                "goalColor": this.goalColor,
+                "completed": false
+            }
+            // check if the goal name is not empty then add new goal
+            if(this.goalName) {
+                const res = await axios.post("http://localhost:3000/goals", goal)
+                this.goals = [...this.goals, res.data]
+                this.goalName = ''
+                this.$refs.goalInput.focus()
+                const goalAddedEl = this.$refs.goalAdded
+                goalAddedEl.style.display = 'block'
+                setTimeout(() => {
+                    goalAddedEl.style.display = 'none'
+                }, 2000)
+            }else {
+                alert("Goal name is empty")
+                this.$refs.goalInput.focus()
+            }
+        },
+        back(){
+            this.$router.go(-1)
+        }
+    },
+    mounted() {
+        this.$refs.goalInput.focus()
+    }
 }
 </script>
 
@@ -95,9 +121,11 @@ export default {
     flex-direction: column;
 }
 .goal-show {
-    background-color: var(--orange-clr);
-    height: 10rem;
+    height: 12rem;
     border-radius: .5rem .5rem 0 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -130,5 +158,21 @@ export default {
     border: 2px solid white;
     border-radius: 50%;
     background-color: var(--orange-clr);
+}
+.bx-arrow-back {
+    cursor: pointer;
+    position: absolute;
+    left: 3rem;
+    font-size: 3rem;
+}
+.goal-added-notify {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #2a9d8f;
+    position: absolute;
+    transform: translateX(65%);
+    bottom: 6.5rem;
+    z-index: 2;
+    display: none;
 }
 </style>
