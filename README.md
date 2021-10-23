@@ -24,6 +24,10 @@ built using:
 
 ![Adding new day goal page](https://user-images.githubusercontent.com/66163130/137979824-7e48daac-a620-4dbb-8abd-8775e5b278d7.png)
 
+## Overview video
+
+![goal_overview](https://user-images.githubusercontent.com/66163130/138553111-0d233c79-7b37-4af1-8e97-2aaa51383f29.gif)
+
 
 # Still Under development
 ## Figma: <a href="https://www.figma.com/file/nBDt1x07Z4YoAOLmrLVjvI/newDayApp?node-id=0%3A1">Figma Designs</a>
