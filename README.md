@@ -10,7 +10,6 @@ This is a todo app i named it (```new day```)
 
 built using:
 * Vue Js
-* Firebase for the backend
 
 
 ## Screen Shots
@@ -29,7 +28,6 @@ built using:
 ![goal_overview](https://user-images.githubusercontent.com/66163130/138553111-0d233c79-7b37-4af1-8e97-2aaa51383f29.gif)
 
 
-# Still Under development
 ## Figma: <a href="https://www.figma.com/file/nBDt1x07Z4YoAOLmrLVjvI/newDayApp?node-id=0%3A1">Figma Designs</a>
 <!-- You can see it <a href="#">live here</a> -->
 
@@ -42,6 +40,9 @@ npm install
 ```
 npm run serve
 ```
+
+## There's a local database inside it. To run it go to the repository folder, type in console:
+```npx json-server --watch data/db.json```
 
 ### Compiles and minifies for production
 ```
